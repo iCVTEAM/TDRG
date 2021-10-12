@@ -1,7 +1,7 @@
 # TDRG
 Pytorch implementation of [Transformer-based Dual Relation Graph for Multi-label Image Recognition. ICCV 2021](https://openaccess.thecvf.com/content/ICCV2021/html/Zhao_Transformer-Based_Dual_Relation_Graph_for_Multi-Label_Image_Recognition_ICCV_2021_paper.html)
 
-
+![TDRG](https://github.com/iCVTEAM/TDRG/blob/master/figs/motivation.png)
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ python main.py  --data COCO2014 --data_root_dir $DATA_PATH$ --save_dir $SAVE_PAT
 
 ## Visualization
 
-
+![vis](https://github.com/iCVTEAM/TDRG/blob/master/figs/vis.png)
 
 ## Citation
 
