@@ -239,6 +239,43 @@ class Trainer(object):
                 print('\tMismatched layers: {}'.format(k))
         self.model.load_state_dict(model_dict)
 
+    # only for original pretrained model 
+    def load_origin_checkpoint(self):
+        print("* Loading checkpoint '{}'".format(self.args.resume))
+        checkpoint = torch.load(self.args.resume)
+        self.start_epoch = checkpoint['epoch']
+        self.best_score = checkpoint['best_score']
+        model_dict = self.model.state_dict()
+        for k, v in checkpoint['state_dict'].items():
+            if 'features.' in k:
+                model_dict[k.replace('features.', 'layer1.')] = v
+            elif 'bottleneck.' in k or 'classifier_global.' in k or 'bn_position' in k or 'gcn.static_' in k:
+                pass
+            elif 'classifier.' in k:
+                model_dict[k.replace('classifier.', 'trans_classifier.')] = v
+            elif 'conv_position.' in k:
+                model_dict[k.replace('conv_position.', 'guidance_transform.')] = v
+            elif 'fc.' in k:
+                model_dict[k.replace('fc.', 'constraint_classifier.')] = v
+            elif 'conv_transform' in k:
+                model_dict[k.replace('conv_transform', 'gcn_dim_transform')] = v
+            elif 'gcn.conv_global' in k:
+                model_dict[k.replace('gcn.conv_global', 'guidance_conv')] = v
+            elif 'gcn.bn_global' in k:
+                model_dict[k.replace('gcn.bn_global', 'guidance_bn')] = v
+            elif 'gcn.conv_create_co_mat' in k:
+                model_dict[k.replace('gcn.conv_create_co_mat', 'matrix_transform')] = v
+            elif 'gcn.dynamic_weight' in k:
+                model_dict[k.replace('gcn.dynamic_weight', 'forward_gcn.weight')] = v
+            elif 'last_linear' in k:
+                model_dict[k.replace('last_linear', 'gcn_classifier')] = v
+            elif k in model_dict and v.shape == model_dict[k].shape:
+                model_dict[k] = v
+            else:
+                print('\tMismatched layers: {}'.format(k))
+        self.model.load_state_dict(model_dict)
+
+
     def save_checkpoint(self, checkpoint, model_dir, is_best=False):
         if not os.path.exists(model_dir):
             os.makedirs(model_dir)

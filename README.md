@@ -18,6 +18,10 @@ Tesla V100 × 2
 - MS-COCO: [train](http://images.cocodataset.org/zips/train2014.zip)  [val](http://images.cocodataset.org/zips/val2014.zip)  [annotations](http://images.cocodataset.org/annotations/annotations_trainval2014.zip)
 - VOC 2007: [trainval](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar)  [test](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar)  [test_anno](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtestnoimgs_06-Nov-2007.tar)
 
+## Model
+
+- MS-COCO: the name of parameters in our original network is different from the public one, hence if you want to test the performance of TDRG on MS-COCO, please download the [checkpoint](https://drive.google.com/file/d/1roXvhXxivzVxjBsJ0_kqLbGnQfb7GSMp/view?usp=sharing) into `checkpoint/COCO2014` folder and replace the function `load_checkpoint` with `load_origin_checkpoint` in `trainer.py`.
+
 ## Train
 
 ```
