@@ -3,7 +3,7 @@ import argparse
 from models import get_model
 from data import make_data_loader
 import warnings
-from trainer_baseline import Trainer
+from trainer import Trainer
 import torch
 import torch.backends.cudnn as cudnn
 import random
